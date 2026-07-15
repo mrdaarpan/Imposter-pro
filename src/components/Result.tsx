@@ -32,6 +32,7 @@ export default function Result({
 
   const suspect = players.find((p) => p.id === votedOutPlayerId) || players[0];
   const isSuspectImposter = suspect?.role === 'imposter' || isFunModeActive;
+  const imposters = players.filter((p) => p.role === 'imposter');
 
   // Let's build the score distribution logic!
   const applyScoresAndNavigate = () => {
@@ -150,6 +151,15 @@ export default function Result({
               <p className="text-xs text-gray-400 mt-2">
                 The actual Imposter has survived the banishment and wins!
               </p>
+
+              <div className="mt-4 p-3.5 rounded-2xl bg-cosmic-dark/60 border border-imposter-pink/20 text-center">
+                <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest block">
+                  {imposters.length > 1 ? 'The actual Imposters were:' : 'The actual Imposter was:'}
+                </span>
+                <span className="text-xl font-display font-black text-imposter-cyan uppercase tracking-wide block mt-1 glow-text-cyan">
+                  {imposters.map((imp) => imp.name).join(', ')}
+                </span>
+              </div>
             </>
           )}
         </motion.div>
